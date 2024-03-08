@@ -13,8 +13,6 @@ class TransaksiSeeder extends Seeder
      */
     public function run(): void
     {
-        Transaksi::create(
-            []
-        )
+        Transaksi::factory(env('TRANSAKSI_SEEDER'))->create();
     }
 }

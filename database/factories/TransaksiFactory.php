@@ -16,8 +16,12 @@ class TransaksiFactory extends Factory
      */
     public function definition(): array
     {
+        $i = 1;
+        for($i; $i < env('PELANGGAN_SEEDER'); $i++){
         return [
-            //
+            'pelanggan_id' => $i %= env('PELANGGAN_SEEDER'),
+            'total_price' => fake('id_ID')->randomNumber(6, true)
         ];
+    }
     }
 }
