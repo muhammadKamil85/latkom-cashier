@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,12 +21,17 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware('guest')->get('/landing-page', function () {
-    return view('landing-page');
+    return view('partials.main');
 })->name('landing-page');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/', [AuthController::class, 'dashboard'])->name('dashboard');
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin-dashboard');
+    Route::get('/product', [AdminController::class, 'product'])->name('admin-product');
+});
+Route::get('/dashboard', function () {
+    return view('auth.dashboard');
 });
 
-Route::post('/login-action', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login-action', [AuthController::class, 'loginAction'])->name('login-action');
 Route::post('/logout-action', [AuthController::class, 'logout'])->name('logout');

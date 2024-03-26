@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Detail_Transaction;
+use App\Models\Pelanggan;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class TransaksiFactory extends Factory
 {
+    private static $pelangganId = 0;
+
     /**
      * Define the model's default state.
      *
@@ -16,12 +20,14 @@ class TransaksiFactory extends Factory
      */
     public function definition(): array
     {
-        $i = 1;
-        for($i; $i < env('PELANGGAN_SEEDER'); $i++){
+        self::$pelangganId++;
+        if (self::$pelangganId > env('SEEDER_PELANGGAN')) {
+            self::$pelangganId = 1;
+        }
+
         return [
-            'pelanggan_id' => $i %= env('PELANGGAN_SEEDER'),
-            'total_price' => fake('id_ID')->randomNumber(6, true)
+            'pelanggan_id' => self::$pelangganId,
+            'total_price' => fake('id_ID')->randomNumber()
         ];
-    }
     }
 }

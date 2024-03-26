@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'petugas',
                 'email' => 'petugas@app.com',
+                'role' => 'petugas',
                 'password' => bcrypt('petugas123')
             ],
         );
