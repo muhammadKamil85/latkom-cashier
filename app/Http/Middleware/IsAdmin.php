@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response;
 
 class IsAdmin
@@ -19,6 +20,7 @@ class IsAdmin
         if(Auth::check() && Auth::user()->role == 'admin'){
             return $next($request);
         }
-        return back()->with('danger', 'Only admin can be access!');
+        Alert::error('Failed', 'You are not an admin!');
+        return back();
     }
 }

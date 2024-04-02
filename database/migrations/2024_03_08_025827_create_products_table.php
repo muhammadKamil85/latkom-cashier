@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('price');
             $table->integer('stock');
+            $table->string('image')->default('img/dummy-image-square.jpg');
             $table->timestamps();
         });
     }

@@ -12,7 +12,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                    <button type="button" class="btn btn-primary d-none d-sm-inline-block shadow-sm btn-sm"><i class="fa-solid fa-cart-plus"></i> Add product</button>
+                    <button type="button" data-toggle="modal" data-target="#productCreate" class="btn btn-primary d-none d-sm-inline-block shadow-sm btn-sm"><i class="fa-solid fa-cart-plus"></i> Add product</button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -20,6 +20,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Stock</th>
@@ -29,6 +30,7 @@
                         <tfoot>
                             <tr>
                                 <th>#</th>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Stock</th>
@@ -38,39 +40,34 @@
                         <tbody>
                             @foreach ($products as $product)
                                 <tr>
-                                    <td style="width: 10vh">{{ $loop->iteration }}</td>
-                                    <td>{{ $product->name }}</td>
-                                    <td>$ {{ number_format($product->price, 0, ',', '.') }}</td>
-                                    <td>{{ $product->stock }}</td>
-                                    <td style="width: 25vh">
-                                        <form action=""
-                                            method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="submit" class="btn btn-primary btn-circle">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </form>
-                                        <a href=""
-                                            class="btn btn-warning btn-circle">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action=""
-                                            method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-circle">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                    <td class="text-center align-middle" style="width: 10vh">{{ $loop->iteration }}</td>
+                                    <td class="d-inline-flex text-center align-middle">
+                                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" width="150px">
                                     </td>
+                                    <td class="text-center align-middle">{{ $product->name }}</td>
+                                    <td class="text-center align-middle">$ {{ number_format($product->price, 0, ',', '.') }}</td>
+                                    <td class="text-center align-middle">{{ $product->stock }}</td>
+                                    <td class="text-center align-middle" style="width: 25vh">
+                                        <button type="button" data-toggle="modal" data-target="#productAdd{{ $product->id }}" class="btn btn-primary btn-circle">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                        <button type="button" data-toggle="modal" data-target="#productEdit{{ $product->id }}" class="btn btn-warning btn-circle">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <a href="{{ route('admin-product-delete', $product->id) }}" type="button" data-confirm-delete="true" data-toggle="modal" class="btn btn-danger btn-circle">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
+                                @include('partials.admin.product-add')
+                                @include('partials.admin.product-edit')
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+        @include('partials.admin.product-create')
 
 @endsection

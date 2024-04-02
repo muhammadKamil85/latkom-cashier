@@ -21,7 +21,7 @@ class TransaksiFactory extends Factory
     public function definition(): array
     {
         self::$pelangganId++;
-        if (self::$pelangganId > env('SEEDER_PELANGGAN')) {
+        if (self::$pelangganId > Pelanggan::count()) {
             self::$pelangganId = 1;
         }
 

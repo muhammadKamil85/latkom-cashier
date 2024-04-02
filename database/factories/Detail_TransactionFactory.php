@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\Transaksi;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,14 +23,17 @@ class Detail_TransactionFactory extends Factory
     {
         self::$transaksiId++;
         self::$productId++;
-        if (self::$productId > env('SEEDER_PRODUK')) {
+        if (self::$transaksiId > Transaksi::count()) {
+            self::$transaksiId = 1;
+        }
+        if (self::$productId > Product::count()) {
             self::$productId = 1;
         }
 
         return [
             'transaksi_id' => self::$transaksiId,
             'product_id' => self::$productId,
-            'qty' => fake()->numberBetween(1, 10),
+            'qty' => fake()->numberBetween(1, 3),
             'subtotal' => Product::where('id', self::$productId)->sum('price')
         ];
     }
