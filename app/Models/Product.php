@@ -13,8 +13,8 @@ class Product extends Model
         'id'
     ];
 
-    public function detail_transaction()
+    public function detail_transactions()
     {
-        return $this->belongsTo(Detail_Transaction::class);
+        return $this->hasMany(Detail_Transaction::class);
     }
 }

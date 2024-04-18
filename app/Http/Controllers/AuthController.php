@@ -20,7 +20,7 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if(Auth::attempt($req)){
+        if (Auth::attempt($req)) {
             $request->session()->regenerate();
             Alert::success('Success', 'Login successfully!');
             return redirect(route('admin-dashboard'));
@@ -35,6 +35,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         Alert::success('Success', 'Logout successfully');
-        return redirect('/');
+        return redirect('/login');
     }
 }

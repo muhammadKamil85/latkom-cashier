@@ -13,13 +13,18 @@ class Transaksi extends Model
         'id'
     ];
 
-    public function pelanggans()
+    public function pelanggan()
     {
-        return $this->hasMany(Pelanggan::class);
+        return $this->belongsTo(Pelanggan::class);
     }
 
-    public function detail_transaction()
+    public function user()
     {
-        return $this->belongsTo(Detail_Transaction::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function detail_transactions()
+    {
+        return $this->hasMany(Detail_Transaction::class);
     }
 }

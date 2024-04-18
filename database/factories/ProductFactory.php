@@ -18,7 +18,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake('id_ID')->word(),
-            'price' => round(fake('id_ID')->randomNumber(6, true), -3),
+            'price' => round(fake('id_ID')->randomNumber(5, true), -3),
             'stock' => fake('id_ID')->randomNumber(3, true)
         ];
     }

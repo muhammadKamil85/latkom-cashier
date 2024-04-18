@@ -14,8 +14,8 @@ class Pelanggan extends Model
         'id'
     ];
 
-    public function product()
+    public function products()
     {
-        return $this->belongsTo(Transaksi::class);
+        return $this->hasMany(Transaksi::class);
     }
 }

@@ -34,7 +34,7 @@ class Detail_TransactionFactory extends Factory
             'transaksi_id' => self::$transaksiId,
             'product_id' => self::$productId,
             'qty' => fake()->numberBetween(1, 3),
-            'subtotal' => Product::where('id', self::$productId)->sum('price')
+            'subtotal' => Product::where('id', self::$productId)->first()->price
         ];
     }
 }

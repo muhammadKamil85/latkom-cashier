@@ -13,13 +13,13 @@ class Detail_Transaction extends Model
         'id'
     ];
 
-    public function transaksis()
+    public function transaksi()
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->belongsTo(Transaksi::class);
     }
 
-    public function products()
+    public function product()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Product::class);
     }
 }

@@ -27,6 +27,7 @@ class TransaksiFactory extends Factory
 
         return [
             'pelanggan_id' => self::$pelangganId,
+            'user_id' => 2,
             'total_price' => fake('id_ID')->randomNumber()
         ];
     }

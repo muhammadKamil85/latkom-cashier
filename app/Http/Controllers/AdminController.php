@@ -17,9 +17,6 @@ class AdminController extends Controller
     public function product()
     {
         $products = Product::all();
-        if (session('image')) {
-            Alert::error('Error', 'Image failed to upload!');
-        }
         confirmDelete('Delete Product!', 'Are you sure you want to delete?');
         return view('auth.admin.product')->with('products', $products);
     }
@@ -79,10 +76,10 @@ class AdminController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();
             $filenameSave = $filename . '' . time() . '.' . $extension;
-            $path = $request->file('image')->storeAs('public/img/product', $filenameSave);
-            $validate['image'] = 'storage/img/product/' . $filenameSave;
+            $request->file('image')->storeAs('public/img/product', $filenameSave);
+            $value['image'] = 'storage/img/product/' . $filenameSave;
         }
-        $product = Product::where('id', $id)->update($request->all());
+        $product = Product::where('id', $id)->update($value);
         if ($product) {
             Alert::success('Success', 'Update product successfully!');
         } else {

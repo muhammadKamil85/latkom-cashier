@@ -1,45 +1,44 @@
-<!-- Edit Modal-->
-<div class="modal fade" id="productEdit{{ $product->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- Create Modal-->
+<div class="modal fade" id="userEdit{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <form action="{{ route('admin-product-update', $product->id) }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('admin-user-update', $user->id) }}" method="post" enctype="multipart/form-data">
             <div class="modal-body">
                @csrf
                @method('PUT')
                <div class="row">
                    <div class="form-group col-6">
                        <label for="nameId">Name</label>
-                       <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="nameId" value="{{ $product->name }}" required>
+                       <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="nameId" value="{{ $user->name }}" required>
                        @error('name')
                            <span class="text-danger">{{ $message }}</span>
                        @enderror
                    </div>
                    <div class="form-group col-6">
-                       <label for="priceId">Price</label>
-                       <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" id="priceId" value="{{ $product->price }}" required>
-                       @error('price')
+                       <label for="emailId">Email</label>
+                       <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="emailId" value="{{ $user->email }}" required>
+                       @error('email')
                            <span class="text-danger">{{ $message }}</span>
                        @enderror
                    </div>
                </div>
                <div class="row">
                    <div class="form-group col-6">
-                       <label for="stockId">Stock</label>
-                       <input type="number" name="stock" class="form-control @error('stock') is-invalid @enderror" id="stockId" value="{{ $product->stock }}" required>
-                       @error('stock')
+                       <label for="roleId">Role</label>
+                       <select name="role" class="form-control @error('role') is-invalid @enderror" id="roleId" required>
+                           <option value="admin" @if($user->role == 'admin') select @endif>Admin</option>
+                           <option value="petugas" @if($user->role == 'petugas') select @endif>Petugas</option>
+                       </select>
+                       @error('role')
                            <span class="text-danger">{{ $message }}</span>
                        @enderror
-                   </div>
-                   <div class="form-group col-6">
-                       <label for="imageId">Image Product</label>
-                       <input type="file" accept="image/*" name="image" class="form-control-file id="imageId">
                    </div>
                </div>
             </div>

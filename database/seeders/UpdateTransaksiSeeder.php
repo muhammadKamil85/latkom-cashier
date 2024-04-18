@@ -15,8 +15,15 @@ class UpdateTransaksiSeeder extends Seeder
     public function run(): void
     {
         $details = Detail_Transaction::all();
+        $i = 1;
         foreach ($details as $key => $detail) {
-            Transaksi::where('id', $key % Detail_Transaction::count())->update(['total_price' => $detail->subtotal]);
+            Detail_Transaction::where('id', $i++)->update(['subtotal' => $detail->subtotal * $detail->qty]);
+        }
+
+        $k = 1;
+        $transaksis = Transaksi::all();
+        foreach ($transaksis as $key => $transaksi) {
+            Transaksi::where('id', $transaksi->id)->update(['total_price' => Detail_Transaction::where('transaksi_id', $transaksi->id)->sum('subtotal')]);
         }
     }
 }

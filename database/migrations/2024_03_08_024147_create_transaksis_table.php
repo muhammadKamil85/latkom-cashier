@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pelanggan_id');
+            $table->unsignedBigInteger('user_id');
             $table->bigInteger('total_price');
             $table->timestamps();
 
             $table->foreign('pelanggan_id')->references('id')->on('pelanggans')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
